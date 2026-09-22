@@ -1,6 +1,155 @@
 # Changelog
 
+## RmzTabM version 0.99
+
+### Changes in version 0.99.2
+
+- Adding support to `"mzTab-profile"` field.
+
+### Changes in version 0.99.1
+
+- Address Bioconductor review process comments.
+
+### Changes in version 0.99.0
+
+- Bioconductor submission.
+
 ## RmzTabM version 0.97
+
+### Changes in version 0.97.20
+
+- Preparation to Biocondutor submission.
+
+### Changes in version 0.97.19
+
+- Fix issue
+  [\#45](https://github.com/rformassspectrometry/RmzTabM/issues/45)
+- Fix issue
+  [\#46](https://github.com/rformassspectrometry/RmzTabM/issues/46)
+- Fix issue
+  [\#47](https://github.com/rformassspectrometry/RmzTabM/issues/47)
+- Add method to handle sml/sme in MzTabM object.
+
+### Changes in version 0.97.18
+
+- Initial version of
+  [`makeSummarizedExperimentFromMzTabM()`](https://rformassspectrometry.github.io/RmzTabM/reference/SummarizedExperiment-mzTab-M.md)
+  to convert `mzTabM` object with MTD+SMF to `SummarizedExperiment`.
+- Add helper function
+  [`mtdToSampleData()`](https://rformassspectrometry.github.io/RmzTabM/reference/mtdToSampleData.md),
+  inverse function of
+  [`mtdFromSampleData()`](https://rformassspectrometry.github.io/RmzTabM/reference/mtdFromSampleData.md).
+- Fix minor bug `mtdFromSampleData`.
+- Update tests and vignette.
+
+### Changes in version 0.97.17
+
+- Update and simplify the `SummarizedExperiment` export example in the
+  vignette.
+
+### Changes in version 0.97.16
+
+- Update vignette with high-level functionality to export a mzTab-M
+  file.
+- Add helper functions `.NAtonull()`.
+- Add [`as.list()`](https://rdrr.io/r/base/list.html).
+- Fix bug in instrument field sorting.
+- Support `identifier` for optional columns in SML, SMF, SME.
+- Update
+  [`readMzTabM()`](https://rformassspectrometry.github.io/RmzTabM/reference/MzTabM-import.md)
+  to create a `MzTabM` object.
+- Update tests and examples.
+
+### Changes in version 0.97.15
+
+- Add functionality to generate mzTab-M content from a
+  `SummarizedExperiment`.
+
+### Changes in version 0.97.14
+
+- Refactor
+  [`setMtdInstrument()`](https://rformassspectrometry.github.io/RmzTabM/reference/setMtdInstrument.md),
+  [`setMtdDatabase()`](https://rformassspectrometry.github.io/RmzTabM/reference/setMtdDatabase.md),
+  [`setMtdCv()`](https://rformassspectrometry.github.io/RmzTabM/reference/setMtdCv.md),
+  [`setMtdContact()`](https://rformassspectrometry.github.io/RmzTabM/reference/setMtdContact.md),
+  [`setMtdField()`](https://rformassspectrometry.github.io/RmzTabM/reference/setMtdField.md)
+  as method.
+
+### Changes in version 0.97.13
+
+- Add function
+  [`mtdFromSampleData()`](https://rformassspectrometry.github.io/RmzTabM/reference/mtdFromSampleData.md)
+  to create metadata (MTD) content including sample, MS run, assay and
+  study variable information from a *sample data* `data.frame`.
+
+### Changes in version 0.97.12
+
+- Add fucntion `mtdProtocol()` for MTD section.
+- Update regex for CV parameter.
+- Support `ms_run-parameter`, `assay-protocol_ref`, `assay-parameter`,
+  `study_variable-ms_run_ref` and `contact-orcid`.
+- Update tests and examples.
+
+### Changes in version 0.97.11
+
+- Add `MzTabM` class as a container for mzTab-M content.
+
+### Changes in version 0.97.10
+
+- First version of general read function
+  [`readMzTabM()`](https://rformassspectrometry.github.io/RmzTabM/reference/MzTabM-import.md)
+- Add example and tests.
+- Fix bug related `study_variable[1-n]-group_ref`
+- Change type `study_variable_group[1-n]` to CV param
+
+### Changes in version 0.97.9
+
+- Support `"Parameter"` as study variable group datatype.
+- Automatic datatype definition for study variable group supports
+  `"Parameter"`.
+
+### Changes in version 0.97.8
+
+- Add functions
+  [`setMtdInstrument()`](https://rformassspectrometry.github.io/RmzTabM/reference/setMtdInstrument.md),
+  [`setMtdDatabase()`](https://rformassspectrometry.github.io/RmzTabM/reference/setMtdDatabase.md),
+  [`setMtdCv()`](https://rformassspectrometry.github.io/RmzTabM/reference/setMtdCv.md),
+  [`setMtdContact()`](https://rformassspectrometry.github.io/RmzTabM/reference/setMtdContact.md),
+  [`setMtdField()`](https://rformassspectrometry.github.io/RmzTabM/reference/setMtdField.md)
+  and `updateMtdContent()` for MTD section
+- Add examples and tests.
+
+### Changes in version 0.97.7
+
+- Add SME section code.
+- Add scripts to test export of mzTab-M 2.1 files.
+
+### Changes in version 0.97.6
+
+- MTD: add *study_variable_group* support (mzTab-M \>= 2.1).
+- MTD: add STATO as one of the default CV ontologies.
+
+### Changes in version 0.97.5
+
+- Add functionality to create/format the SML section: `sml_create()`,
+  `sml_sort()`, `sml_add_study_variable_columns()`.
+
+### Changes in version 0.97.4
+
+- Restructure helper functions to be usable across SMF and SML
+  functionality.
+
+### Changes in version 0.97.3
+
+- Add utility function `parse_cv_param()`.
+
+### Changes in version 0.97.2
+
+- Add vignette.
+
+### Changes in version 0.97.1
+
+- Addition of SMF related functions to the package.
 
 ### Changes in version 0.97.0
 

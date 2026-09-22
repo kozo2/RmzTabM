@@ -1,0 +1,254 @@
+# mzTab-M data container
+
+The `MzTabM` class is a simple container for the mzTab-M data/file
+content. Methods for this class allow adding or updating information and
+validating its content.
+
+New instances can be created using the `MzTabM()` function providing the
+content for the MTD, SML, SMF and SME sections (through parameters
+`mtd`, `sml`, `smf`, and `sme`, respectively).
+
+## Usage
+
+``` r
+# S4 method for class 'dfmatrix'
+MzTabM(
+  mtd = mtdSkeleton(id = "<replace>", software = "<replace>"),
+  sml = matrix(ncol = 0, nrow = 0),
+  smf = matrix(ncol = 0, nrow = 0),
+  sme = matrix(ncol = 0, nrow = 0)
+)
+
+# S4 method for class 'MzTabM'
+mtd(object)
+
+# S4 method for class 'MzTabM'
+sml(object)
+
+# S4 method for class 'MzTabM'
+smf(object)
+
+# S4 method for class 'MzTabM'
+sme(object)
+```
+
+## Arguments
+
+- mtd:
+
+  Two-column `matrix` or `data.frame` with the MTD content (see
+  [MTD-export](https://rformassspectrometry.github.io/RmzTabM/reference/MTD-export.md)
+  for details and expected format/content).
+
+- sml:
+
+  `matrix` or `data.frame` with the SML content (see
+  [SML-export](https://rformassspectrometry.github.io/RmzTabM/reference/SML-export.md)
+  for details and expected format/content).
+
+- smf:
+
+  `matrix` or `data.frame` with the SMF content (see
+  [SMF-export](https://rformassspectrometry.github.io/RmzTabM/reference/SMF-export.md)
+  for details and expected format/content).
+
+- sme:
+
+  `matrix` or `data.frame` with the SME content (see
+  [SME-export](https://rformassspectrometry.github.io/RmzTabM/reference/SME-export.md)
+  for details and expected format/content).
+
+- object:
+
+  `MzTabM` object.
+
+## Value
+
+See the help pages for the respective functions for information on their
+returned value(s).
+
+## MTD section; adding or getting metadata
+
+Various functions are available to get or set metadata information of a
+`MzTabM` class:
+
+- [`getMtdInstrument()`](https://rformassspectrometry.github.io/RmzTabM/reference/setMtdInstrument.md)
+  and
+  [`setMtdInstrument()`](https://rformassspectrometry.github.io/RmzTabM/reference/setMtdInstrument.md)
+  for instrument information.
+
+- [`getMtdDatabase()`](https://rformassspectrometry.github.io/RmzTabM/reference/setMtdDatabase.md)
+  and
+  [`setMtdDatabase()`](https://rformassspectrometry.github.io/RmzTabM/reference/setMtdDatabase.md)
+  for database information.
+
+- [`getMtdCv()`](https://rformassspectrometry.github.io/RmzTabM/reference/setMtdCv.md)
+  and
+  [`setMtdCv()`](https://rformassspectrometry.github.io/RmzTabM/reference/setMtdCv.md)
+  for CV information.
+
+- [`getMtdContact()`](https://rformassspectrometry.github.io/RmzTabM/reference/setMtdContact.md)
+  and
+  [`setMtdContact()`](https://rformassspectrometry.github.io/RmzTabM/reference/setMtdContact.md)
+  for contact information.
+
+- [`getMtdProtocol()`](https://rformassspectrometry.github.io/RmzTabM/reference/setMtdProtocol.md)
+  and
+  [`setMtdProtocol()`](https://rformassspectrometry.github.io/RmzTabM/reference/setMtdProtocol.md)
+  for protocol information.
+
+- [`getMtdField()`](https://rformassspectrometry.github.io/RmzTabM/reference/setMtdField.md)
+  and
+  [`setMtdField()`](https://rformassspectrometry.github.io/RmzTabM/reference/setMtdField.md)
+  for additional information.
+
+## SML section; adding or getting small summary matrix
+
+- `sml()`: returns the SML summary matrix of an `MzTabM` object.
+
+## SMF section; adding or getting small feature abundance matrix
+
+- `smf()`: returns the SMF feature abundance matrix of an `MzTabM`
+  object.
+
+## SME section; adding or getting small evidence matrix
+
+- `sme()`: returns the SME evidence matrix of an `MzTabM` object.
+
+## Author
+
+Johannes Rainer
+
+## Examples
+
+``` r
+
+## Create a minimal mzTab-M with only MTD content.
+m <- MzTabM(mtd = mtdSkeleton(id = "001", software = "[,,RmzTabM,]"))
+m
+#> Object of class MzTabM
+#> mzTab-M version 2.1.0-M
+#>  MTD section with 24 rows.
+
+## Add instrument information to the MTD section
+m <- setMtdInstrument(m, name = "[MS, MS:1000449, LTQ Orbitrap,]",
+          source = "[MS, MS:1000073, ESI,]",
+          analyzer = c(`analyzer[1]` = "[MS, MS:1000291, linear ion trap,]"),
+          detector = "[MS, MS:1000253, electron multiplier,]")
+m
+#> Object of class MzTabM
+#> mzTab-M version 2.1.0-M
+#>  MTD section with 28 rows.
+getMtdInstrument(m)
+#>                       instrument[1]-name 
+#>        "[MS, MS:1000449, LTQ Orbitrap,]" 
+#>                     instrument[1]-source 
+#>                 "[MS, MS:1000073, ESI,]" 
+#>                instrument[1]-analyzer[1] 
+#>     "[MS, MS:1000291, linear ion trap,]" 
+#>                   instrument[1]-detector 
+#> "[MS, MS:1000253, electron multiplier,]" 
+
+## Add database metadata to an existing mzTab object
+m <- setMtdDatabase(m, name = "[MIRIAM, MIR:00100079, HMDB, ]",
+          prefix = "hmdb",
+          version = "3.6",
+          uri = "http://www.hmdb.ca/")
+m
+#> Object of class MzTabM
+#> mzTab-M version 2.1.0-M
+#>  MTD section with 28 rows.
+getMtdDatabase(m)
+#>                      database[1]               database[1]-prefix 
+#> "[MIRIAM, MIR:00100079, HMDB, ]"                           "hmdb" 
+#>              database[1]-version                  database[1]-uri 
+#>                            "3.6"            "http://www.hmdb.ca/" 
+
+## Add CV metadata to an existing mzTab object
+m <- setMtdCv(m, label = "MS",
+          full_name = "PSI-MS controlled vocabulary",
+          version = "4.1.11",
+          uri = "https://purl.obolibrary.org/obo/ms.obo")
+m
+#> Object of class MzTabM
+#> mzTab-M version 2.1.0-M
+#>  MTD section with 32 rows.
+getMtdCv(m)
+#>                                                               cv[1]-label 
+#>                                                                      "MS" 
+#>                                                           cv[1]-full_name 
+#>                                            "PSI-MS controlled vocabulary" 
+#>                                                             cv[1]-version 
+#>                                                                 "4.1.138" 
+#>                                                                 cv[1]-uri 
+#>                                "https://www.ebi.ac.uk/ols4/ontologies/ms" 
+#>                                                               cv[2]-label 
+#>                                                                   "PRIDE" 
+#>                                                           cv[2]-full_name 
+#> "PRIDE PRoteomics IDEntifications (PRIDE) database controlled vocabulary" 
+#>                                                             cv[2]-version 
+#>                                                        "16:10:2023 11:38" 
+#>                                                                 cv[2]-uri 
+#>                              "https://www.ebi.ac.uk/ols/ontologies/pride" 
+#>                                                               cv[3]-label 
+#>                                                                   "STATO" 
+#>                                                           cv[3]-full_name 
+#>                                     "General purpose STATistics Ontology" 
+#>                                                             cv[3]-version 
+#>                                                              "2026-04-20" 
+#>                                                                 cv[3]-uri 
+#>                             "https://www.ebi.ac.uk/ols4/ontologies/stato" 
+#>                                                               cv[4]-label 
+#>                                                                      "MS" 
+#>                                                           cv[4]-full_name 
+#>                                            "PSI-MS controlled vocabulary" 
+#>                                                             cv[4]-version 
+#>                                                                  "4.1.11" 
+#>                                                                 cv[4]-uri 
+#>                                  "https://purl.obolibrary.org/obo/ms.obo" 
+
+## Add contact metadata to an existing mzTab object
+m <- setMtdContact(m, name = "Name Surname",
+          affiliation = "PSI-MS",
+          email = "name.surname@mail.com", orcid = "0000-0002-1825-0097")
+m
+#> Object of class MzTabM
+#> mzTab-M version 2.1.0-M
+#>  MTD section with 36 rows.
+getMtdContact(m)
+#>         contact[1]-name  contact[1]-affiliation        contact[1]-email 
+#>          "Name Surname"                "PSI-MS" "name.surname@mail.com" 
+#>        contact[1]-orcid 
+#>   "0000-0002-1825-0097" 
+
+## Add protocol metadata to an existing mzTab object
+m <- setMtdProtocol(m, name = c("Mass Spectrometry"),
+       type = c("[CHMO, CHMO:0000470, mass spectrometry, ]"),
+       description = c("Eluting compounds were detected ..."),
+       parameters = paste0("[MS, MS:1000008, ionization type, ",
+                           "[MS,MS:1000073, electrospray ionization, ]]"))
+m
+#> Object of class MzTabM
+#> mzTab-M version 2.1.0-M
+#>  MTD section with 40 rows.
+getMtdProtocol(m)
+#>                                                                protocol[1]-name 
+#>                                                             "Mass Spectrometry" 
+#>                                                                protocol[1]-type 
+#>                                     "[CHMO, CHMO:0000470, mass spectrometry, ]" 
+#>                                                         protocol[1]-description 
+#>                                           "Eluting compounds were detected ..." 
+#>                                                        protocol[1]-parameter[1] 
+#> "[MS, MS:1000008, ionization type, [MS,MS:1000073, electrospray ionization, ]]" 
+
+## Add a metadata field to an existing mzTab object
+m <- setMtdField(m, field = "publication",
+          value = "pubmed:21063943|doi:10.1007/978-1-60761-987-1_6")
+m
+#> Object of class MzTabM
+#> mzTab-M version 2.1.0-M
+#>  MTD section with 41 rows.
+getMtdField(m, field = "publication")
+#>                                    publication[1] 
+#> "pubmed:21063943|doi:10.1007/978-1-60761-987-1_6" 
+```
